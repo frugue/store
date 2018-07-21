@@ -1,0 +1,20 @@
+<?xml version='1.0'?>
+<config
+	xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+	xsi:noNamespaceSchemaLocation='urn:magento:framework:ObjectManager/etc/config.xsd'
+>
+<!-- 2018-04-13
+«Redirect customers to a proper store by checking his IP address»:
+https://github.com/mage2pro/frugue.com/issues/2
+-->
+	<type name='Magento\Framework\App\FrontControllerInterface'>
+		<plugin
+			name='Frugue\Store\Plugin\Framework\App\FrontControllerInterface'
+			type='Frugue\Store\Plugin\Framework\App\FrontControllerInterface'
+		/>
+	</type>
+<!-- 2018-03-11 https://www.upwork.com/d/contracts/19688867 -->
+	<type name='Magento\Store\Block\Switcher'>
+		<plugin name='Frugue\Store\Plugin\Store\Block\Switcher' type='Frugue\Store\Plugin\Store\Block\Switcher'/>
+	</type>
+</config>

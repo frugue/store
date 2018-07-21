@@ -1,0 +1,29 @@
+<?xml version='1.0'?>
+<page 
+	xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+	xsi:noNamespaceSchemaLocation='urn:magento:framework:View/Layout/etc/page_configuration.xsd'
+>
+	<head><css src='Frugue_Store::main.css'/></head>
+	<body>
+<!-- 2018-03-12
+I do not use `<move element='store_switcher' destination='top.links' after='header'/>` and
+	<referenceBlock name='store_switcher'>
+		<action method='setTemplate'>
+			<argument name='template' xsi:type='string'>Frugue_Core::store/switch/stores.phtml</argument>
+		</action>
+	</referenceBlock>
+because the TemplateMonster Magetique (#62000) design theme uses a conflicting layout rule:
+`<move element="store_switcher" destination="footer.grid-container" before="-"/>`
+-->
+		<referenceBlock name='header' remove='true'/>
+		<referenceBlock name='store_switcher' remove='true'/>
+		<referenceContainer name='panel.container.wrap'>
+			<block
+				before='-'
+				class='Magento\Store\Block\Switcher'
+				name='dfe_store_switcher'
+				template='Frugue_Store::switch/stores.phtml'
+			/>
+		</referenceContainer>
+	</body>
+</page>

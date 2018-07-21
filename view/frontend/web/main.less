@@ -1,0 +1,74 @@
+// 2018-03-12 I have duplicated these styles from the footer.
+.panel-container-wrap {
+	padding-bottom: 0;
+	.switcher-store {
+		border: 0;
+		float: left;
+		width: 13em;
+		.switcher-options {
+			@media(max-width: 767px) {
+				float: right;
+			}
+			> .switcher-trigger {border: 0;}
+		}
+		.switcher-options.active {
+			.action {border-bottom-color: #fff;}
+			.switcher-dropdown {display: block;}
+		}
+		.switcher-dropdown {
+			background: #fff;
+			font-size: 12px;
+			padding: 13px 22px;
+			position: absolute;
+			top: 100%;
+			width: 100%;
+			z-index: 4;  // 2018-03-12 It should be > 3 to onvercome the main logo `z-index`.
+			li.switcher-option {
+				display: list-item;
+				margin: 0;
+			}
+		}
+		@media(max-width: 767px) {
+			position: fixed;
+			right: 12px;
+			top: 11px;
+			width: 11em;
+			z-index: 18;
+			.switcher-trigger {
+				font-size: 12px;
+				padding-left: 0;
+				padding-right: 0;
+				&.active, &:hover {
+					background-color: inherit;
+					color: inherit;
+					outline: none;
+				}
+			}
+			ul.switcher-dropdown {
+				padding-right: 10px;
+				padding-top: 0;
+				right: 0;
+				width: auto;
+				li {
+					text-align: right;
+				}
+			}
+		}
+	}
+}
+.flag-icon {
+	// 2018-03-11 I need `!important` for the mobile version.
+	vertical-align: top !important;
+	// 2018-03-11
+	// I need it to vertically align a flag with the country's name.
+	// The `display: inline-block` rule is already applied to the `.flag-icon` span,
+	// and it is not possible can not make it `inline`, because it will break the flag's appearance,
+	// so I set `display: inline-block` to the country's name.
+	& + strong {display: inline-block;}
+	#switcher-store-trigger & {line-height: 24px;}
+	.switcher-dropdown & {line-height: 22px;}
+}
+.switcher-dropdown li {text-align: left;}
+#switcher-store-trigger .flag-icon + strong {margin-top: 1px;}
+// 2018-03-11 I need `!important` for the mobile version.
+#switcher-store-trigger::after {float: right !important;}

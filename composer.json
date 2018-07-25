@@ -1,6 +1,6 @@
 {
 	"name": "frugue/store"
-	,"version": "0.0.2"
+	,"version": "1.0.0"
 	,"description": "A custom store module for frugue.com"
 	,"type": "magento2-module"
 	,"homepage": "https://github.com/frugue/store"
@@ -11,7 +11,7 @@
 		,"homepage": "https://mage2.pro/users/dmitry_fedyuk"
 		,"role": "Developer"
 	}]
-	,"require": {"frugue/core": ">=0.3.2", "mage2pro/core": ">=3.8.2", "mage2pro/flag": ">=1.0.3"}
+	,"require": {"frugue/core": ">=0.3.2", "mage2pro/core": ">=3.8.3", "mage2pro/flag": ">=1.0.3"}
 	,"autoload": {"files": ["registration.php"], "psr-4": {"Frugue\\Store\\": ""}}
 	,"keywords": ["Magento 2"]
 }

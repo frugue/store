@@ -20,9 +20,9 @@ because the TemplateMonster Magetique (#62000) design theme uses a conflicting l
 		<referenceContainer name='panel.container.wrap'>
 			<block
 				before='-'
-				class='Magento\Store\Block\Switcher'
-				name='dfe_store_switcher'
-				template='Frugue_Store::switch/stores.phtml'
+				class='Frugue\Store\Block\Switcher'
+				name='frugue_store_switcher'
+				template='Frugue_Store::switcher.phtml'
 			/>
 		</referenceContainer>
 	</body>

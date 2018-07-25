@@ -1,0 +1,37 @@
+<?php /** @var \Frugue\Store\Block\Switcher $block */
+	use Magento\Store\Model\Store as S;
+	echo df_flag_link();
+	$currentId = df_store_id(); /** @var int $currentId */
+	$stores = df_stores(); /** @var S[] $stores */
+?>
+<div class='switcher store switcher-store' id='switcher-store'>
+    <div class='actions dropdown options switcher-options'>
+        <?php foreach ($stores as $s): /** @var S $s */ ?>
+			<?php if ($currentId == $s->getId()): ?>
+				<div class='action toggle switcher-trigger'
+					 data-mage-init='{"dropdown":{}}'
+					 data-toggle='dropdown'
+					 data-trigger-keypress-button='true'
+					 id='switcher-store-trigger'
+					 role='button'
+					 tabindex='0'
+				>
+					<?= df_flag_span($s->getCode()) ?>
+					<strong><span><?= $block->name($s) ?></span></strong>
+				</div>
+			<?php endif; ?>
+        <?php endforeach; ?>
+        <ul class='dropdown switcher-dropdown' data-target='dropdown'>
+            <?php foreach ($stores as $s): /** @var S $s */ ?>
+				<?php if ($currentId != $s->getId()): ?>
+					<li class='switcher-option'>
+						<a data-post='<?= $block->post($s) ?>' href='#'>
+							<?= df_flag_span($s->getCode()) ?>
+							<span><?= $block->name($s) ?></span>
+						</a>
+					</li>
+				<?php endif; ?>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+</div>

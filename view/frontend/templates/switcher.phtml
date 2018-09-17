@@ -16,7 +16,7 @@
 					 role='button'
 					 tabindex='0'
 				>
-					<?= df_flag_span($s->getCode()) ?>
+					<?= df_flag_tag($s->getCode()) ?>
 					<strong><span><?= $block->name($s) ?></span></strong>
 				</div>
 			<?php endif; ?>
@@ -26,7 +26,7 @@
 				<?php if ($currentId != $s->getId()): ?>
 					<li class='switcher-option'>
 						<a data-post='<?= $block->post($s) ?>' href='#'>
-							<?= df_flag_span($s->getCode()) ?>
+							<?= df_flag_tag($s->getCode()) ?>
 							<span><?= $block->name($s) ?></span>
 						</a>
 					</li>

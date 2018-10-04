@@ -2,6 +2,7 @@ A custom store module for [frugue.com](https://frugue.com).
 
 ## How to install
 ```
+composer clear-cache
 composer require frugue/store:*
 bin/magento setup:upgrade
 rm -rf pub/static/* && bin/magento setup:static-content:deploy en_US de_DE fr_FR

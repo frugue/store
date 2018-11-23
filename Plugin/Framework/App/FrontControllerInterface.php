@@ -23,7 +23,7 @@ final class FrontControllerInterface {
 	 */
 	function aroundDispatch(Sb $sb, \Closure $f, IRequest $r) {
 		$res = null; /** @var Response|null $res */
-		if (df_area_code_is(A::AREA_FRONTEND)) {
+		if (!df_is_google_page_speed() && df_area_code_is(A::AREA_FRONTEND)) {
 			$s = df_customer_session(); /** @var Session|DfSession $s */
 			if (!($c = $s->getDfeFrugueCountry())) /** @var string $c */ {
 				$s->setDfeFrugueCountry($c = (df_is_localhost() ? 'HR' : df_visitor()->iso2()));

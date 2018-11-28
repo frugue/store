@@ -1,6 +1,6 @@
 {
 	"name": "frugue/store"
-	,"version": "1.0.2"
+	,"version": "1.0.3"
 	,"description": "A custom store module for frugue.com"
 	,"type": "magento2-module"
 	,"homepage": "https://github.com/frugue/store"

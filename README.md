@@ -7,7 +7,7 @@ composer clear-cache
 composer require frugue/store:*
 bin/magento setup:upgrade
 rm -rf var/di var/generation generated/code && bin/magento setup:di:compile
-rm -rf pub/static/* && bin/magento setup:static-content:deploy en_US de_DE fr_FR --area frontend --theme TemplateMonster/theme007 && bin/magento setup:static-content:deploy en_US --area adminhtml --theme Magento/backend
+rm -rf pub/static/* && bin/magento setup:static-content:deploy -f en_US de_DE fr_FR --area frontend --theme TemplateMonster/theme007 && bin/magento setup:static-content:deploy -f en_US --area adminhtml --theme Magento/backend
 bin/magento maintenance:disable
 ```
 
@@ -18,7 +18,7 @@ composer clear-cache
 composer update frugue/store
 bin/magento setup:upgrade
 rm -rf var/di var/generation generated/code && bin/magento setup:di:compile
-rm -rf pub/static/* && bin/magento setup:static-content:deploy en_US de_DE fr_FR --area frontend --theme TemplateMonster/theme007 && bin/magento setup:static-content:deploy en_US --area adminhtml --theme Magento/backend
+rm -rf pub/static/* && bin/magento setup:static-content:deploy -f en_US de_DE fr_FR --area frontend --theme TemplateMonster/theme007 && bin/magento setup:static-content:deploy -f en_US --area adminhtml --theme Magento/backend
 bin/magento maintenance:disable
 ```
 

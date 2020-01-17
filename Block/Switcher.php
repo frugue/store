@@ -24,12 +24,24 @@ class Switcher extends _P {
 
 	/**
 	 * 2018-07-25
+	 * 2020-01-17
+	 * "Add «Russia» to the countries dropdown in the frontend website header":
+	 * https://github.com/frugue/site/issues/2
 	 * @used-by name()
 	 * @return array(string => array(string => string))
 	 */
 	private function map() {return dfc($this, function() {return dftr(df_lang(), [
-		'de' => ['de' => 'Deutschland', 'uk' => 'Großbritannien', 'us' => 'USA', 'fr' => 'Frankreich']
-		,'en' => ['de' => 'Germany', 'uk' => 'United Kingdom', 'us' => 'United States', 'fr' => 'France']
-		,'fr' => ['de' => 'Allemagne', 'uk' => 'Royaume-Uni', 'us' => 'États-Unis', 'fr' => 'France']
+		'de' => [
+			'de' => 'Deutschland'
+			,'uk' => 'Großbritannien'
+			,'us' => 'USA'
+			,'fr' => 'Frankreich'
+			,'ru' => 'Russland'
+		]
+		,'en' => [
+			'de' => 'Germany', 'uk' => 'United Kingdom', 'us' => 'United States', 'fr' => 'France', 'ru' => 'Russia'
+		]
+		,'fr' => ['de' => 'Allemagne', 'uk' => 'Royaume-Uni', 'us' => 'États-Unis', 'fr' => 'France', 'ru' => 'Russie']
+		,'ru' => ['de' => 'Германия', 'uk' => 'Великобритания', 'us' => 'США', 'fr' => 'Франция', 'ru' => 'Россия']
 	]);});}
 }

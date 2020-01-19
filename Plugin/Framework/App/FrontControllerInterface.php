@@ -26,11 +26,14 @@ final class FrontControllerInterface {
 		$res = null; /** @var Response|null $res */
 		/**
 		 * 2020-01-19
-		 * "Disable the visitors redirection feature (based on the visitor's IP address)
+		 * 1) "Disable the visitors redirection feature (based on the visitor's IP address)
 		 * for all Google's crawlers (otherwise some stores like Russian will never be indexed by Google)":
 		 * https://github.com/frugue/store/issues/3
+		 * 2) `https://frugue.com/insta_ru` should be redirected to
+		 * `https://frugue.com/ru/all-bras.html?utm_source=instagram`:
+		 * https://github.com/frugue/site/issues/5
 		 */
-		if (!df_is_google_ua() && df_area_code_is(A::AREA_FRONTEND)) {
+		if (!df_is_google_ua() && df_area_code_is(A::AREA_FRONTEND) && 'instagram' !== df_request('utm_source')) {
 			$s = df_customer_session(); /** @var Session|DfSession $s */
 			if (!($c = $s->getDfeFrugueCountry())) /** @var string $c */ {
 				$s->setDfeFrugueCountry($c = (df_is_localhost() ? 'HR' : df_visitor()->iso2()));

@@ -44,7 +44,6 @@ final class RewriteUrl {
             if ($existingRewrite && !$currentRewrite) {
                 $targetUrl = $targetStore->getBaseUrl();
             }
-			//$targetUrl = $targetStore->getBaseUrl();
 		}
 		return $targetUrl;
 	}

@@ -24,7 +24,13 @@ final class FrontControllerInterface {
 	 */
 	function aroundDispatch(Sb $sb, \Closure $f, IRequest $r) {
 		$res = null; /** @var Response|null $res */
-		if (!df_is_google_page_speed() && df_area_code_is(A::AREA_FRONTEND)) {
+		/**
+		 * 2020-01-19
+		 * "Disable the visitors redirection feature (based on the visitor's IP address)
+		 * for all Google's crawlers (otherwise some stores like Russian will never be indexed by Google)":
+		 * https://github.com/frugue/store/issues/3
+		 */
+		if (!df_is_google_ua() && df_area_code_is(A::AREA_FRONTEND)) {
 			$s = df_customer_session(); /** @var Session|DfSession $s */
 			if (!($c = $s->getDfeFrugueCountry())) /** @var string $c */ {
 				$s->setDfeFrugueCountry($c = (df_is_localhost() ? 'HR' : df_visitor()->iso2()));

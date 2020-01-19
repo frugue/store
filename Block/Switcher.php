@@ -1,8 +1,8 @@
 <?php
 namespace Frugue\Store\Block;
+use Frugue\Store\Switcher as SwitcherM;
 use Magento\Framework\View\Element\Template as _P;
 use Magento\Store\Model\Store as S;
-use Magento\Store\Model\StoreManagerInterface as IStoreManager;
 // 2018-07-25
 /** @final Unable to use the PHP «final» keyword here because of the M2 code generation. */
 class Switcher extends _P {
@@ -18,31 +18,9 @@ class Switcher extends _P {
 	 * @param S $s
 	 * @return string
 	 */
-	final function post(S $s) {return df_post_h()->getPostData($this->getUrl('stores/store/switch'), [
-		IStoreManager::PARAM_NAME => $s->getCode()
-		/**
-		 * 2020-01-18
-		 * 1) "The store/country switcher at the frontend's header does not work":
-		 * https://github.com/frugue/store/issues/1
-		 * 2) @see \Magento\Store\Controller\Store\SwitchAction::execute():
-		 *		$fromStoreCode = $this->_request->getParam('___from_store');
-		 *		$requestedUrlToRedirect = $this->_redirect->getRedirectUrl();
-		 *		$redirectUrl = $requestedUrlToRedirect;
-		 *		$error = null;
-		 *		try {
-		 *			$fromStore = $this->storeRepository->get($fromStoreCode);
-		 *			$targetStore = $this->storeRepository->getActiveStoreByCode($targetStoreCode);
-		 *		}
-		 * 		catch (StoreIsInactiveException $e) {
-		 *			$error = __('Requested store is inactive');
-		 *		}
-		 * 		catch (NoSuchEntityException $e) {
-		 *			$error = __("The store that was requested wasn't found. Verify the store and try again.");
-		 *		}
-		 * https://github.com/magento/magento2/blob/2.3.0/app/code/Magento/Store/Controller/Store/SwitchAction.php#L95-L113
-		 */
-		,'___from_store' => df_store_code()
-	]);}
+	final function post(S $s) {return df_post_h()->getPostData(
+		$this->getUrl(SwitcherM::PATH), SwitcherM::params($s->getCode())
+	);}
 
 	/**
 	 * 2018-07-25

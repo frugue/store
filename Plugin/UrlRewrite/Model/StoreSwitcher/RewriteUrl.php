@@ -19,7 +19,7 @@ final class RewriteUrl {
 	 */
 	function aroundSwitch(Sb $sb, \Closure $f, IStore $fromStore, IStore $targetStore, string $redirectUrl): string {
 		$targetUrl = $redirectUrl;
-		$urlPath = ltrim(df_request_i($targetUrl)->getPathInfo(), '/');
+		$urlPath = df_url_path($targetUrl);
 		if ($targetStore->isUseStoreInUrl()) {
 			// Remove store code in redirect url for correct rewrite search
 			$storeCode = preg_quote($targetStore->getCode() . '/', '/');
@@ -37,7 +37,14 @@ final class RewriteUrl {
 			}
 		}
 		else {
-			$targetUrl = $targetStore->getBaseUrl();
+            $existingRewrite = df_url_finder()->findOneByData([R::REQUEST_PATH => $urlPath]);
+            $currentRewrite = df_url_finder()->findOneByData([
+            	R::REQUEST_PATH => $urlPath, R::STORE_ID => $targetStore->getId()
+			]);
+            if ($existingRewrite && !$currentRewrite) {
+                $targetUrl = $targetStore->getBaseUrl();
+            }
+			//$targetUrl = $targetStore->getBaseUrl();
 		}
 		return $targetUrl;
 	}

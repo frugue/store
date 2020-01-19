@@ -1,13 +1,14 @@
 <?php
 namespace Frugue\Store\Plugin\Framework\App;
 use Df\Customer\Model\Session as DfSession;
+use Frugue\Store\Switcher;
 use Magento\Customer\Model\Session;
 use Magento\Framework\App\Area as A;
 use Magento\Framework\App\FrontControllerInterface as Sb;
 use Magento\Framework\App\Request\Http;
 use Magento\Framework\App\RequestInterface as IRequest;
 use Magento\Framework\HTTP\PhpEnvironment\Response;
-use Magento\Store\Api\StoreResolverInterface as IStoreResolver;
+use Magento\Store\Model\StoreManagerInterface as IStoreManager;
 // 2018-04-13
 final class FrontControllerInterface {
 	/**
@@ -29,8 +30,7 @@ final class FrontControllerInterface {
 				$s->setDfeFrugueCountry($c = (df_is_localhost() ? 'HR' : df_visitor()->iso2()));
 			}
 			if (!$s->getDfeFrugueRedirected()) {
-				$urlSwitch = 'stores/store/switch';  /** @const string $urlSwitch */
-				if (df_url_path_contains($urlSwitch)) {
+				if (df_url_path_contains(Switcher::PATH)) {
 					$s->setDfeFrugueRedirected(true);
 				}
 				else {
@@ -56,7 +56,7 @@ final class FrontControllerInterface {
 					);
 					if ($c !== df_store_code()) {
 						$res = df_o(Response::class);
-						$res->setRedirect(df_url_frontend($urlSwitch, [IStoreResolver::PARAM_NAME => $c]));
+						$res->setRedirect(df_url_frontend(Switcher::PATH, Switcher::params($c)));
 					}
 					$s->setDfeFrugueRedirectStarted(!!$res);
 				}

@@ -7,6 +7,7 @@ use Magento\Store\Model\StoreManagerInterface as IStoreManager;
 final class Switcher {
 	/**
 	 * 2020-01-18
+	 * @used-by \Frugue\Shipping\Header::_toHtml()
 	 * @used-by \Frugue\Store\Block\Switcher::post()
 	 * @used-by \Frugue\Store\Plugin\Framework\App\FrontControllerInterface::aroundDispatch()
 	 */
@@ -14,6 +15,7 @@ final class Switcher {
 
 	/**
 	 * 2020-01-18
+	 * @used-by \Frugue\Shipping\Header::_toHtml()
 	 * @used-by \Frugue\Store\Block\Switcher::post()
 	 * @used-by \Frugue\Store\Plugin\Framework\App\FrontControllerInterface::aroundDispatch()
 	 * @param string $toStore

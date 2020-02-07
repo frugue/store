@@ -3,6 +3,7 @@
 	xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
 	xsi:noNamespaceSchemaLocation='urn:magento:framework:View/Layout/etc/page_configuration.xsd'
 >
+<!-- 2020-02-07 TemplateMonster/theme007 does not load `_module.less` files. -->
 	<head><css src='Frugue_Store::main.css'/></head>
 	<body>
 <!-- 2018-03-12

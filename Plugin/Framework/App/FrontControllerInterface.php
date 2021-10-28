@@ -1,9 +1,7 @@
 <?php
 namespace Frugue\Store\Plugin\Framework\App;
-use Df\Customer\Model\Session as DfSession;
 use Frugue\Core\Session as Sess;
 use Frugue\Store\Switcher;
-use Magento\Customer\Model\Session;
 use Magento\Framework\App\Area as A;
 use Magento\Framework\App\FrontControllerInterface as Sb;
 use Magento\Framework\App\RequestInterface as IRequest;
@@ -24,24 +22,20 @@ final class FrontControllerInterface {
 	 */
 	function aroundDispatch(Sb $sb, \Closure $f, IRequest $r) {
 		$res = null; /** @var Response|null $res */
-		/**
-		 * 2020-01-19
-		 * 1) "Disable the visitors redirection feature (based on the visitor's IP address)
-		 * for all Google's crawlers (otherwise some stores like Russian will never be indexed by Google)":
-		 * https://github.com/frugue/store/issues/3
-		 * 2) `https://frugue.com/insta_ru` should be redirected to
-		 * `https://frugue.com/ru/all-bras.html?utm_source=instagram`:
-		 * https://github.com/frugue/site/issues/5
-		 */
+		# 2020-01-19
+		# 1) "Disable the visitors redirection feature (based on the visitor's IP address)
+		# for all Google's crawlers (otherwise some stores like Russian will never be indexed by Google)":
+		# https://github.com/frugue/store/issues/3
+		# 2) `https://frugue.com/insta_ru` should be redirected to `https://frugue.com/ru/all-bras.html?utm_source=instagram`:
+		# https://github.com/frugue/site/issues/5
 		if (!df_is_google_ua() && df_area_code_is(A::AREA_FRONTEND) && 'instagram' !== df_request('utm_source')) {
-			$s = df_customer_session(); /** @var Session|DfSession $s */
-			$s2 = Sess::s(); /** @var Sess $s2 */
-			if (!($c = $s2->country())) /** @var string $c */ {
-				$s2->country($c = (df_is_localhost() ? 'HR' : df_visitor()->iso2()));
+			$s = Sess::s(); /** @var Sess $s */
+			if (!($c = $s->country())) /** @var string $c */ {
+				$s->country($c = (df_is_localhost() ? 'HR' : df_visitor()->iso2()));
 			}
-			if (!$s2->redirected()) {
+			if (!$s->redirected()) {
 				if (df_url_path_contains(Switcher::PATH)) {
-					$s2->redirected(true);
+					$s->redirected(true);
 				}
 				else {
 					# «При первичном посещении клиента с IP адресом из Германии, Австрии, Швейцарии -
@@ -66,7 +60,6 @@ final class FrontControllerInterface {
 						$res = df_o(Response::class);
 						$res->setRedirect(df_url_frontend(Switcher::PATH, Switcher::params($c)));
 					}
-					$s->setDfeFrugueRedirectStarted(!!$res);
 				}
 			}
 		}

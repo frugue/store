@@ -39,9 +39,9 @@ final class FrontControllerInterface {
 			if (!($c = $s2->country())) /** @var string $c */ {
 				$s2->country($c = (df_is_localhost() ? 'HR' : df_visitor()->iso2()));
 			}
-			if (!$s->getDfeFrugueRedirected()) {
+			if (!$s2->redirected()) {
 				if (df_url_path_contains(Switcher::PATH)) {
-					$s->setDfeFrugueRedirected(true);
+					$s2->redirected(true);
 				}
 				else {
 					# «При первичном посещении клиента с IP адресом из Германии, Австрии, Швейцарии -

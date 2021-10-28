@@ -1,14 +1,14 @@
 <?php
 namespace Frugue\Store\Plugin\Framework\App;
 use Df\Customer\Model\Session as DfSession;
+use Frugue\Core\Session as Sess;
 use Frugue\Store\Switcher;
 use Magento\Customer\Model\Session;
 use Magento\Framework\App\Area as A;
 use Magento\Framework\App\FrontControllerInterface as Sb;
-use Magento\Framework\App\Request\Http;
 use Magento\Framework\App\RequestInterface as IRequest;
+use Magento\Framework\App\Request\Http;
 use Magento\Framework\HTTP\PhpEnvironment\Response;
-use Magento\Store\Model\StoreManagerInterface as IStoreManager;
 // 2018-04-13
 final class FrontControllerInterface {
 	/**
@@ -35,29 +35,28 @@ final class FrontControllerInterface {
 		 */
 		if (!df_is_google_ua() && df_area_code_is(A::AREA_FRONTEND) && 'instagram' !== df_request('utm_source')) {
 			$s = df_customer_session(); /** @var Session|DfSession $s */
-			if (!($c = $s->getDfeFrugueCountry())) /** @var string $c */ {
-				$s->setDfeFrugueCountry($c = (df_is_localhost() ? 'HR' : df_visitor()->iso2()));
+			$s2 = Sess::s(); /** @var Sess $s2 */
+			if (!($c = $s2->country())) /** @var string $c */ {
+				$s2->country($c = (df_is_localhost() ? 'HR' : df_visitor()->iso2()));
 			}
 			if (!$s->getDfeFrugueRedirected()) {
 				if (df_url_path_contains(Switcher::PATH)) {
 					$s->setDfeFrugueRedirected(true);
 				}
 				else {
-					/**
-					 * «При первичном посещении клиента с IP адресом из Германии, Австрии, Швейцарии -
-					 * направляем во frugue Германия.
-					 *
-					 * При первичном посещении клиента с IP адресом из Франции, Бельгии, Люксембурга -
-					 * направляем во frugue Франция.
-					 *
-					 * При первичном посещении клиента с IP адресом из Великобритании, Ирландии,
-					 * а также Italy, Latvia, Bulgaria, Lithuania, Croatia, Cyprus, Malta, Czech Republic,
-					 * Netherlands, Poland, Estonia, Portugal, Finland, Romania, Slovakia, Slovenia, Greece,
-					 * Spain, Hungary, Sweden - направляем во frugue Великобритания.
-					 *
-					 * При первичном посещении клиента с IP адресом из всех других стран -
-					 * направляем его во frugue США.»
-					 */
+					# «При первичном посещении клиента с IP адресом из Германии, Австрии, Швейцарии -
+					# направляем во frugue Германия.
+					#
+					# При первичном посещении клиента с IP адресом из Франции, Бельгии, Люксембурга -
+					# направляем во frugue Франция.
+					#
+					# При первичном посещении клиента с IP адресом из Великобритании, Ирландии,
+					# а также Italy, Latvia, Bulgaria, Lithuania, Croatia, Cyprus, Malta, Czech Republic,
+					# Netherlands, Poland, Estonia, Portugal, Finland, Romania, Slovakia, Slovenia, Greece,
+					# Spain, Hungary, Sweden - направляем во frugue Великобритания.
+					#
+					# При первичном посещении клиента с IP адресом из всех других стран -
+					# направляем его во frugue США.»
 					$c = in_array($c, ['AT', 'CH', 'DE']) ? 'de' : (
 						in_array($c, ['BE', 'FR', 'LU']) ? 'fr' : (
 							df_eu($c) ? 'uk' : 'us'
